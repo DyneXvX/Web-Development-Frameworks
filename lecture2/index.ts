@@ -42,4 +42,4 @@ class Student{
     }
 }
 
-//cntl C will kill the watching.
+//ctrl C will kill the watching.
