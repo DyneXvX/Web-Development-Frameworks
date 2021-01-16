@@ -1,14 +1,18 @@
 .center-all {
-    text-align: center;
+  text-align: center;
 }
 
-hr { 
-    position: relative; 
-    top: 20px; 
-    width: 75%;
-    margin: auto;
-    border: none; 
-    height: 5px; 
-    background: black; 
-    margin-bottom: 50px; 
-} 
+hr {
+  position: relative;
+  top: 20px;
+  width: 75%;
+  margin: auto;
+  border: none;
+  height: 5px;
+  background: black;
+  margin-bottom: 50px;
+}
+
+textarea {
+  resize: none;
+}
