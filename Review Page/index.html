@@ -1,121 +1,172 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/site.css">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles/site.css" />
     <title>Laptop Reviews</title>
-</head>
+  </head>
 
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:grey">
-        <a class="navbar-brand font-italic" href="index.html">Justin's Laptop Reviews</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </div>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light"
+      style="background-color: grey"
+    >
+      <a class="navbar-brand font-italic" href="index.html"
+        >Justin's Laptop Reviews</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html"
+              >Home<span class="sr-only">(current)</span></a
+            >
+          </li>
+        </ul>
+      </div>
     </nav>
 
     <template id="responseTemplate">
-        <hr/>
-        <span id="Review"></span>
+      <hr />
+      <label>Rating:</label>
+      <span id="userRating"></span>
+      <br />
+      <label>User:</label>
+      <span id="userName"></span>
+      <br />
+      <label>Review:</label>
+      <span id="userReview"></span>
     </template>
 
     <h1 class="center-all">Laptop Reviews</h1>
-    <h6 class="center-all font-italic">brought to you today by: Geforce RTX in my laptop from HP and Web framework class
-        at UNF.</h6>
+    <h6 class="center-all font-italic">
+      brought to you today by: Geforce RTX in my laptop from HP and Web
+      framework class at UNF.
+    </h6>
 
-    <div class="row" style="margin-top: 5%;">
-        <div class="col-3 offset-2">
-            <img src="images/hp.jpg" style="width: 100%;">
-        </div>
-        <div class="col-3 offset-2">
-            Today we take a moment to look at the HP whatever it is.
-            <br />
-            <br />
-            With the slick design and fully customizable settings this laptop has been a not only a great buy, but an
-            outstanding addition to any developers kit.
-            <br />
-            <br />
-            However don't take my word for it just because I am using it to build this web page real quick. Read a
-            review from a non-bias customer found here <span
-                class="font-italic">http://www.justins_non-bias_reviews.com</span>            
-        </div>
+    <div class="row" style="margin-top: 5%">
+      <div class="col-3 offset-2">
+        <img src="images/hp.jpg" style="width: 100%" />
+      </div>
+      <div class="col-3 offset-2">
+        Today we take a moment to look at the HP whatever it is.
+        <br />
+        <br />
+        With the slick design and fully customizable settings this laptop has
+        been a not only a great buy, but an outstanding addition to any
+        developers kit.
+        <br />
+        <br />
+        However don't take my word for it just because I am using it to build
+        this web page real quick. Read a review from a non-bias customer found
+        here
+        <span class="font-italic">http://www.justins_non-bias_reviews.com</span>
+      </div>
     </div>
 
-    <hr>
+    <hr class="split" />
 
     <div class="row">
-        <div class="col-3 offset-2">
-            <h4><u>Reviews</u></h4>
-            Justin Thoms
-            <br/>
-            The greatest laptop for todays developers on the go!
-            <div id="responsePoint"></div>
-        </div>
-        <div class="col-3 offset-3">            
-            <h4><u>Average Ratings: </u></h4>
-            <br/>
-            <div id="averageRating"></div>                    
-        </div>
+      <div class="col-3 offset-2">
+        <h4><u>Reviews</u></h4>
+        <label>Rating:</label>
+        5
+        <br/>
+        <label>Name:</label>
+        Justin Thoms
+        <br />
+        <label>Review:</label>
+        The greatest laptop for todays developers on the go!
+        <div id="responsePoint"></div>
+      </div>     
+      <div class="col-2 offset-2">
+        <h4><u>Average Ratings: </u></h4>
+        <br />
+        <div id="averageRating"></div>
+      </div>
     </div>
 
-    <hr>
-<form>
-    <div class="row">
+    <hr class="split" />
+    <form>
+      <div class="row">
         <div class="col-8 offset-2">
-            <h4><u>Leave a Review</u></h4>
-            <br/>
-            <div class="row">
-                <div class="col-1">
-                    <label>Rating:</label>        
-                </div>
-                <div>
-                    <input type="form-control" name="rating" id="rating" size="30">
-                </div>
+          <h4><u>Leave a Review</u></h4>
+          <br />
+          <div class="row">
+            <div class="col-1">
+              <label for="ratings">Rating:</label>
             </div>
-            <div class="row">
-                <div class="col-1">
-                    <label>Name:</label>        
-                </div>
-                <div>
-                    <input type="form-control" type="text" id="name" size="30">
-                </div>
+            <div>
+                <select id="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
             </div>
-            <div class="row">
-                <div class="col-1">
-                    <label>Commit: </label>        
-                </div>
-                <div>
-                    <textarea class="form-control" name="commit" id="commit" cols="30" rows="5"></textarea>
-                </div>
+          </div>
+          <div class="row">
+            <div class="col-1">
+              <label>Name:</label>
             </div>
-            <br />
-            <button type="button" class="btn btn-primary" id="submit">Submit</button>
-            <button type="reset" class="btn btn-secondary">Reset</button>
+            <div>
+              <input type="form-control" type="text" id="name" size="30" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-1">
+              <label>Review: </label>
+            </div>
+            <div>
+              <textarea
+                class="form-control"
+                name="commit"
+                id="commit"
+                cols="30"
+                rows="5"
+              ></textarea>
+            </div>
+          </div>
+          <br />
+          <button type="button" class="btn btn-primary" id="submit">
+            Submit
+          </button>
+          <button type="reset" class="btn btn-secondary">Reset</button>
         </div>
-    </div>
-</form>
+      </div>
+    </form>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
     <script src="dist/index.js"></script>
-</body>
-
+  </body>
 </html>

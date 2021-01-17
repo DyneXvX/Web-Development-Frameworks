@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-hr {
+.split {
   position: relative;
   top: 20px;
   width: 75%;
