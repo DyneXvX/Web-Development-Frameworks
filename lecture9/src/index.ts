@@ -1,22 +1,44 @@
 import http, { IncomingMessage, ServerResponse } from 'http';
 import express from 'express';
+import bodyParser from 'body-parser';
+import { studentRouter } from './routes/student';
 
 let app = express();
 
-app.use('/Student/:nNumber/:nfName/:nlName', (req, res, next) => {
-    //res.send(`Hello Students! N Number: ${req.params.nNumber}`);
-    res.send(`Hello Student First Name: ${req.params.nfName} and Last Name: ${req.params.nlName}`);
 
 
-})
+let ListOfKids: string[] = ['Johnny', 'Paul', 'Mike', 'Stephen']
 
-app.use('/Students', (req, res, next) => {
-    res.send('Hello Students');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json);
 
-})
+app.use("/Students", studentRouter);
+
+app.get('/ListOfKids', (req, res, next) => {
+    res.send(ListOfKids);
+});
+
+app.get('/NewKid', (req, res, next) => {
+    res.send('<form method="POST" Action="Kids"><input type="text" name="Name"/><input type="submit"/></form>')
+});
+
+app.post('/Kids', (req, res, next) => {
+    console.log(ListOfKids);
+    console.log(req.body);
+    ListOfKids.push(req.body.Name);
+    res.send(req.body.Name);
+
+});
+
+// app.post('/Kids', (req, res, next) =>{
+//     console.log('Triggered Kids Post');
+//     console.log(req.body);
+// });
+
+
 
 app.use('/', (req, res, next) => {
-    res.status(404).send("Sorry the page is not found.");
+    res.status(404).send("Sorry the page is not found...");
 
 })
 

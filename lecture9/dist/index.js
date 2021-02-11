@@ -5,16 +5,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_1 = __importDefault(require("http"));
 const express_1 = __importDefault(require("express"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const student_1 = require("./routes/student");
 let app = express_1.default();
-app.use('/Student/:nNumber/:nfName/:nlName', (req, res, next) => {
-    //res.send(`Hello Students! N Number: ${req.params.nNumber}`);
-    res.send(`Hello Student First Name: ${req.params.nfName} and Last Name: ${req.params.nlName}`);
+let ListOfKids = ['Johnny', 'Paul', 'Mike', 'Stephen'];
+app.use(body_parser_1.default.urlencoded({ extended: false }));
+app.use(body_parser_1.default.json);
+app.use("/Students", student_1.studentRouter);
+app.get('/ListOfKids', (req, res, next) => {
+    res.send(ListOfKids);
 });
-app.use('/Students', (req, res, next) => {
-    res.send('Hello Students');
+app.get('/NewKid', (req, res, next) => {
+    res.send('<form method="POST" Action="Kids"><input type="text" name="Name"/><input type="submit"/></form>');
 });
+app.post('/Kids', (req, res, next) => {
+    console.log(ListOfKids);
+    console.log(req.body);
+    ListOfKids.push(req.body.Name);
+    res.send(req.body.Name);
+});
+// app.post('/Kids', (req, res, next) =>{
+//     console.log('Triggered Kids Post');
+//     console.log(req.body);
+// });
 app.use('/', (req, res, next) => {
-    res.status(404).send("Sorry the page is not found.");
+    res.status(404).send("Sorry the page is not found...");
 });
 /*function reqListener(req: IncomingMessage, res: ServerResponse)
 {
