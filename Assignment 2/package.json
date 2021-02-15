@@ -1,0 +1,14 @@
+{
+  "name": "assignment-2",
+  "version": "1.0.0",
+  "description": "Assignment 2 (Node and Express)",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Justin Thoms",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.14.28"
+  }
+}
