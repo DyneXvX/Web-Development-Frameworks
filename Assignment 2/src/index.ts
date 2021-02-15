@@ -1,23 +1,29 @@
 import http, { IncomingMessage, ServerResponse } from 'http';
+import fs from 'fs'; // file system
+import path from 'path'; // for cross platform <--very important.
 
 
+//stopped at 54 minutes 
+//reading the html once and done
+const indexData = fs.readFileSync(path.join(process.cwd(), 'views', 'index.html'));
+
+//starting the server
 const server = http.createServer(serverReq);
+
+//finding the path location information.
+console.log(__dirname);
+console.log(__filename);
+console.log(process.cwd());
 
 function serverReq(req: IncomingMessage, res: ServerResponse)
 {
     console.log(req);
     if(req.url==='/')
     {
-        res.write('<html>');
-        res.write('<body>');
-        res.write('<h1>Hello and Welcome</h1>');
-        res.write('<form method="POST" action="Data">');
-        res.write('<label for="txtName">Enter your name</label>');
-        res.write('<input type="text" name="txtName" id="txtName"></input>');
-        res.write('<input type="submit" name="btnSubmit" value="Submit"/>');
-        res.write('</form>');
-        res.write('</body>');
-        res.write('</html>');
+        
+        console.log(indexData.toString());
+        res.write(indexData)
+  
         res.statusCode = 200; // success
         res.end();
     }
