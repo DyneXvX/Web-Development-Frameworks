@@ -14,7 +14,7 @@ usersRouter.get('/', (req, res, next) => {
 //GET by userId
 usersRouter.get('/:userId', (req, res, next) =>{
 
-    let foundUser: users | null = null;
+    let foundUser: users | null = null;    
     for(let i = 0; i < usersArray.length; i++)
     {
         if (usersArray[i].userId === +req.params.userId) {

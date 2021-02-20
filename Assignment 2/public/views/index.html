@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-       <!--Bootstrap-->
+    <!--Bootstrap-->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -11,12 +11,68 @@
   </head>
 
   <body>
-    <p class="font-italic">Index page.</p>
-    <p>And here we go again!!</p>
-    <div>
-        <a href="views/newUser.html" class="btn btn-primary">New User</a>
+    <h1 class="text-center font-italic">Assignment 2</h1>
+    <br />
+    <h5>Class: Web Frameworks</h5>
+    <h5>Spring 2021</h5>
+    <h5>Developed By: Justin Thoms</h5>
+    <h6>N01414359</h6>
+    <br />
+    <div class="container-fluid">
+      <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+          <th>Link</th>
+          <th>Methods</th>
+          <th>URL</th>
+          <th>Expected Input</th>
+          <th>Expected Output</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center"><a href="/" class="btn btn-success" style="width: 75%;">Home Page</a></td>
+            <td>GET</td>
+            <td>/</td>
+            <td>None</td>
+            <td>This Page</td>
+          </tr>
+          <tr>
+            <td class="text-center"><a href="/Users" class="btn btn-success" style="width: 75%;">Users</a></td>
+            <td>GET</td>
+            <td>/Users</td>
+            <td>None</td>
+            <td>List of Users in the "database" with all their properties.</td>
+          </tr>
+          <tr>
+            <td class="text-center"><a href="views/newUser.html" class="btn btn-primary" style="width: 75%;">New User</a></td>
+            <td>POST</td>
+            <td>/Users</td>
+            <td>firstName, lastName, emailAddress, password</td>
+            <td>Will Create a new User.</td>
+          </tr>
+          <tr>
+            <td class="text-center"><a href="views/getUser.html" class="btn btn-success" style="width: 75%;">User Info</a></td>
+            <td>GET</td>
+            <td>/Users/{userId}</td>
+            <td>A users id number of you choice</td>
+            <td>Will find that user with the correct id, or will return a not found notice.</td>
+          </tr>
+          <tr>
+            <td class="text-center"><a href="views/patchUser.html" class="btn btn-info" style="width: 75%;">Patch User</a></td>
+            <td>PATCH</td>
+            <td>/Users/{userId}</td>
+            <td>userId, and any information you wish to update</td>
+            <td>Will update the users information.</td>
+          </tr>
+          <tr>
+            <td class="text-center"><a href="views/deleteUser.html" class="btn btn-danger" style="width: 75%;">Delete User</a></td>
+            <td>DELETE</td>
+            <td>/Users/{userId}</td>
+            <td>userId</td>
+            <td>This will delete the user.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
 
     <!--Bootstrap-->
     <script

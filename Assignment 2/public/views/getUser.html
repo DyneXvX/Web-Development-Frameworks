@@ -11,26 +11,17 @@
   </head>
   <body>
     <div class="text-center">
-      <h4>Add a new User to the system.</h4>
+      <h4>Find a user by Id</h4>
+      <h5>
+        This does not work, and I don't know why yet. However postman works I just can't seem to get this value to the
+        http get request.
+      </h5>
     </div>
     <div class="row" style="margin-top: 5%">
       <div class="col- offset-5">
-        <form action="/Users" method="POST">
+        <form action="/Users/:userId" method="GET">
           <div class="form-group">
-            <label for="firstName"
-              >Users First Name:<input type="text" name="firstName" id="firstName" class="form-control"
-            /></label>
-          </div>
-          <div class="form-group">
-            <label>Users Last Name:<input type="text" name="lastName" id="lastName" class="form-control" /></label>
-          </div>
-          <div class="form-group">
-            <label
-              >Users Email Address:<input type="text" name="emailAddress" id="emailAddress" class="form-control"
-            /></label>
-          </div>
-          <div class="form-group">
-            <label>Users Password:<input type="text" name="password" id="password" class="form-control" /></label>
+            <label for="userId">Users Id:<input type="number" name="userId" id="userId" class="form-control" /></label>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-secondary">Reset</button>
