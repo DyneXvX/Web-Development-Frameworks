@@ -4,7 +4,7 @@ import { users } from '../models/users';
 const usersRouter = express.Router();
 
 let usersArray: users[] = [];
-usersArray.push(new users(1, 'Justin', 'Thoms', 'n01414359@unf.edu', 'Random Password'));
+usersArray.push(new users(1, 'Justin', 'Thoms', 'n01414359@unf.edu', 'Random Pass'));
 
 //GET Request
 usersRouter.get('/', (req, res, next) => {
@@ -12,21 +12,19 @@ usersRouter.get('/', (req, res, next) => {
 });
 
 //GET by userId
-usersRouter.get('/:userId', (req, res, next) =>{
+usersRouter.get('/:userId', (req, res, next) => {
 
-    let foundUser: users | null = null;    
-    for(let i = 0; i < usersArray.length; i++)
-    {
+    let foundUser: users | null = null;
+    for (let i = 0; i < usersArray.length; i++) {
         if (usersArray[i].userId === +req.params.userId) {
-            foundUser = usersArray[i];            
+            foundUser = usersArray[i];
             break;
         }
     }
-    if (foundUser == null)
-    {
-        res.status(404).send({message: `That user was not found.`})
+    if (foundUser == null) {
+        res.status(404).send({ message: `That user was not found.` })
     }
-    else{
+    else {
         res.send(foundUser);
     }
 });
@@ -52,7 +50,10 @@ usersRouter.patch('/:userId', (req, res, next) => {
         //because of the magic of javascript we just add a '+',no clue why.
         if (usersArray[i].userId === +req.params.userId) {
             foundUser = usersArray[i];
+            foundUser.firstName = req.body.firstName;
+            foundUser.lastName = req.body.lastName;
             foundUser.emailAddress = req.body.emailAddress;
+            foundUser.password = req.body.password;
             break;
         }
     }
@@ -85,7 +86,7 @@ usersRouter.delete('/:userId', (req, res, next) => {
     }
     else {
         //No content
-        res.status(204).send({message: `User Deleted.`});
+        res.status(204).send({ message: `User Deleted.` });
     }
 
 });

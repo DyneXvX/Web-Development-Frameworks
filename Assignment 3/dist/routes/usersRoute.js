@@ -10,7 +10,7 @@ const usersRouter = express_1.default.Router();
 exports.usersRouter = usersRouter;
 let usersArray = [];
 exports.usersArray = usersArray;
-usersArray.push(new users_1.users(1, 'Justin', 'Thoms', 'n01414359@unf.edu', 'Random Password'));
+usersArray.push(new users_1.users(1, 'Justin', 'Thoms', 'n01414359@unf.edu', 'Random Pass'));
 //GET Request
 usersRouter.get('/', (req, res, next) => {
     res.status(200).send(usersArray);
@@ -48,7 +48,10 @@ usersRouter.patch('/:userId', (req, res, next) => {
         //because of the magic of javascript we just add a '+',no clue why.
         if (usersArray[i].userId === +req.params.userId) {
             foundUser = usersArray[i];
+            foundUser.firstName = req.body.firstName;
+            foundUser.lastName = req.body.lastName;
             foundUser.emailAddress = req.body.emailAddress;
+            foundUser.password = req.body.password;
             break;
         }
     }
