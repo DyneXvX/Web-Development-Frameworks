@@ -10,12 +10,29 @@ const usersRouter = express_1.default.Router();
 exports.usersRouter = usersRouter;
 let usersArray = [];
 exports.usersArray = usersArray;
-usersArray.push(new users_1.users(1, 'Justin', 'Thoms', 'n01414359@unf.edu', 'Random Pass'));
+usersArray.push(new users_1.users(1, 'Justin', 'Thoms', 'n01414359@unf.edu', 'Password'));
 //GET Request
+//Return Users without their password field.
 usersRouter.get('/', (req, res, next) => {
     res.status(200).send(usersArray);
 });
+//Login and verify for JWT..
+usersRouter.get('/:userId/:password', (req, res, next) => {
+    let found = false;
+    for (let i = 0; i < usersArray.length; i++) {
+        if (usersArray[i].userId === +req.params.userId && usersArray[i].password === req.params.password) {
+            //Authenticated the user
+            found = true;
+            res.send('125412851415');
+            break;
+        }
+    }
+    if (!found) {
+        res.status(401).send('Bad userId or password!');
+    }
+});
 //GET by userId
+//Return all but Password
 usersRouter.get('/:userId', (req, res, next) => {
     let foundUser = null;
     for (let i = 0; i < usersArray.length; i++) {
@@ -28,7 +45,7 @@ usersRouter.get('/:userId', (req, res, next) => {
         res.status(404).send({ message: `That user was not found.` });
     }
     else {
-        res.send(foundUser);
+        res.status(200).send(foundUser);
     }
 });
 //POST Request

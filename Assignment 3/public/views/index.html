@@ -11,64 +11,180 @@
   </head>
 
   <body>
-    <h1 class="text-center font-italic">Assignment 2</h1>
+    <h1 class="text-center font-italic">Assignment 3</h1>
     <br />
     <h5>Class: Web Frameworks</h5>
     <h5>Spring 2021</h5>
     <h5>Developed By: Justin Thoms</h5>
     <h6>N01414359</h6>
     <br />
-    <div class="container-fluid">
+    <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
-          <th>Link</th>
-          <th>Methods</th>
-          <th>URL</th>
-          <th>Expected Input</th>
-          <th>Expected Output</th>
+          <th style="width: 10%">Link</th>
+          <th style="width: 5%">Methods</th>
+          <th style="width: 10%">URL</th>
+          <th style="width: 15%">Expected Input</th>
+          <th style="width: 40%">Expected Output</th>
         </thead>
         <tbody>
           <tr>
-            <td class="text-center"><a href="/" class="btn btn-success" style="width: 75%;">Home Page</a></td>
+            <td class="text-center"><a href="/" class="btn btn-success" style="width: 75%">Home Page</a></td>
             <td>GET</td>
             <td>/</td>
             <td>None</td>
             <td>This Page</td>
           </tr>
           <tr>
-            <td class="text-center"><a href="/Users" class="btn btn-success" style="width: 75%;">Users</a></td>
+            <td class="text-center"><a href="/Users" class="btn btn-success" style="width: 75%">Users</a></td>
             <td>GET</td>
             <td>/Users</td>
             <td>None</td>
-            <td>List of Users in the "database" with all their properties.</td>
+            <td>
+              Returns a list of all users in the system, this should return all the properties of all the users except
+              their passwords. The user’s password
+            </td>
           </tr>
           <tr>
-            <td class="text-center"><a href="views/newUser.html" class="btn btn-primary" style="width: 75%;">New User</a></td>
+            <td class="text-center">
+              <a href="views/newUser.html" class="btn btn-primary" style="width: 75%">New User</a>
+            </td>
             <td>POST</td>
             <td>/Users</td>
             <td>firstName, lastName, emailAddress, password</td>
-            <td>Will Create a new User.</td>
+            <td>
+              Creates a new User It should check for Duplicate User ID All fields are required It should validate for
+              valid Email Address If a duplicate ID it should return an error Message and a status of 409 (Conflict)
+              Should return 201(Created) under normal circumstances
+            </td>
           </tr>
           <tr>
-            <td class="text-center"><a href="views/getUser.html" class="btn btn-success" style="width: 75%;">User Info</a></td>
+            <td class="text-center">
+              <a href="views/getUser.html" class="btn btn-success" style="width: 75%">User Info</a>
+            </td>
             <td>GET</td>
             <td>/Users/{userId}</td>
             <td>A users id number of you choice</td>
-            <td>Will find that user with the correct id, or will return a not found notice. (HTML Doesn't Work only Displays)</td>
+            <td>
+              Returns all of the given user’s information except the password. (the password should be blank or not
+              there at all when retrieving a user) Should return Status 200 (OK) under normal circumstances If a user is
+              not found it should return an Error Message with a Status of 404 (Not Found) See below for the Error
+              Message Syntax (JSON Object)(HTML Doesn't Work only Displays)
+            </td>
           </tr>
           <tr>
-            <td class="text-center"><a href="views/patchUser.html" class="btn btn-info" style="width: 75%;">Patch User</a></td>
+            <td class="text-center">
+              <a href="views/patchUser.html" class="btn btn-info" style="width: 75%">Patch User</a>
+            </td>
             <td>PATCH</td>
             <td>/Users/{userId}</td>
             <td>userId, and any information you wish to update</td>
-            <td>Will update the users information. (HTML Doesn't Work only Displays)</td>
+            <td>
+              Should update an existing user (no updates are allowed to the userID field) If user is not found return
+              404 (not found) Should return 200 (OK) under normal circumstance s Authentication header is required with
+              a valid JSON Web Token Should return 401 (Not Authorized) if the request is not properly
+              authenticated(HTML Doesn't Work only Displays)
+            </td>
           </tr>
           <tr>
-            <td class="text-center"><a href="views/deleteUser.html" class="btn btn-danger" style="width: 75%;">Delete User</a></td>
+            <td class="text-center">
+              <a href="views/deleteUser.html" class="btn btn-danger" style="width: 75%">Delete User</a>
+            </td>
             <td>DELETE</td>
             <td>/Users/{userId}</td>
             <td>userId</td>
-            <td>This will delete the user. (HTML Doesn't Work only Displays)</td>
+            <td>
+              Should Delete an existing user (and the user’s related Posts) Should return 404 (Not Found) if the user is
+              not found Authentication header is required with a valid JSON Web Token Should return 401 (Not Authorized)
+              if the request is not properly authenticated and it should return a properly formatted Error Message
+              Should return 204 (No Content) under normal circumstances) (HTML Doesn't Work only Displays)
+            </td>
+          </tr>
+          <tr>
+            <td>New Items for Assignment 3</td>
+            <td>--------------</td>
+            <td>--------------</td>
+            <td>--------------</td>
+            <td>--------------</td>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <a href="#" class="btn btn-success" style="width: 75%">Login (Not Yet)</a>
+            </td>
+            <td>GET</td>
+            <td>/Users/{userId}/{password}</td>
+            <td>userId & users password</td>
+            <td>
+              Should return a valid JSON Web Token if the username and password are valid Should return 401
+              Un-Authorized otherwise
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <a href="#" class="btn btn-success" style="width: 75%">All Post (Not Yet)</a>
+            </td>
+            <td>GET</td>
+            <td>/Posts</td>
+            <td>None</td>
+            <td>
+              Should return all posts in the blog in sequential order of createdDate where the latest post should be
+              first element on the Array. Should return 200 (OK) under normal circumstances
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <a href="#" class="btn btn-success" style="width: 75%">Get Post (Not Yet)</a>
+            </td>
+            <td>GET</td>
+            <td>/Posts{postId}</td>
+            <td>postId</td>
+            <td>
+              Should return a specific post Should return 200 (OK) Under Normal Circumstances Should return 404 not
+              found if the post doesn’t exist
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <a href="#" class="btn btn-primary" style="width: 75%">New Post (Not Yet)</a>
+            </td>
+            <td>POST</td>
+            <td>/Posts</td>
+            <td>None</td>
+            <td>
+              Creates a new post for the currently Authenticated User Requires Authentication header with a valid JSON
+              Web Token Should return 401 (Not Authorized) if the request is not properly authenticated and it should
+              return a properly formatted Error Message Should Return 201 (Created) under normal circumstances
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <a href="#" class="btn btn-info" style="width: 75%">Patch a Post (Not Yet)</a>
+            </td>
+            <td>PATCH</td>
+            <td>/Posts/{postId}</td>
+            <td>postId</td>
+            <td>
+              Updates an existing post, not changes to the postID are allowed or the creation date. Only the content and
+              header image may be altered Requires Authentication header with a valid JSON Web Token and the currently
+              logged in user must match the author of the post Should return 401 (Not Authorized) if the request is not
+              properly authenticated and it should return a properly formatted Error Message Should return 404 (Not
+              Found) if the post doesn’t exist Should return 200 (OK) under normal circumstances
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">
+              <a href="#" class="btn btn-danger" style="width: 75%">Delete Post (Not Yet)</a>
+            </td>
+            <td>DELETE</td>
+            <td>/Posts/postId</td>
+            <td>postId</td>
+            <td>
+              Should delete an existing post and related Comments (see below) Requires Authentication header with a
+              valid JSON Web Token and the currently logged in user must match the author of the post Should return 401
+              (Not Authorized) if the request is not properly authenticated and it should return a properly formatted
+              Error Message Should return 404 Not Found if the Post doesn’t exist Should return 204 no content under
+              normal circumstances.
+            </td>
           </tr>
         </tbody>
       </table>
