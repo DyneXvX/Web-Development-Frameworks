@@ -13,7 +13,13 @@ exports.usersRouter = usersRouter;
 const key = '3165131651320';
 let usersArray = [];
 exports.usersArray = usersArray;
-usersArray.push(new users_1.users(1, 'Justin', 'Thoms', 'n01414359@unf.edu', 'Password'));
+//Default Master User
+bcrypt_1.default.genSalt(10, function (err, salt) {
+    bcrypt_1.default.hash('Password', salt, function (err, hash) {
+        let newUser = new users_1.users(1, 'Justin', 'Thoms', 'n01414359@unf.edu', hash);
+        usersArray.push(newUser);
+    });
+});
 //GET Request
 //Return Users without their password field.
 usersRouter.get('/', (req, res, next) => {
@@ -68,23 +74,38 @@ usersRouter.post('/', (req, res, next) => {
 //PATCH Request - Edit MVC
 usersRouter.patch('/:userId', (req, res, next) => {
     let foundUser = null;
-    for (let i = 0; i < usersArray.length; i++) {
-        //error states will always be false. However, checked in the video he says
-        //because of the magic of javascript we just add a '+',no clue why.
-        if (usersArray[i].userId === +req.params.userId) {
-            foundUser = usersArray[i];
-            foundUser.firstName = req.body.firstName;
-            foundUser.lastName = req.body.lastName;
-            foundUser.emailAddress = req.body.emailAddress;
-            foundUser.password = req.body.password;
-            break;
+    if (req.headers.authorization) {
+        if (req.headers.authorization.startsWith("Bearer ")) {
+            for (let i = 0; i < usersArray.length; i++) {
+                if (usersArray[i].userId === +req.params.userId) {
+                    foundUser = usersArray[i];
+                    foundUser.firstName = req.body.firstName;
+                    foundUser.lastName = req.body.lastName;
+                    foundUser.emailAddress = req.body.emailAddress;
+                    bcrypt_1.default.genSalt(10, function (err, salt) {
+                        bcrypt_1.default.hash(req.body.password, salt, function (err, hash) {
+                            if (foundUser) //this isn't even possible to be null!!.
+                             {
+                                foundUser.password = hash;
+                            }
+                        });
+                    });
+                    break;
+                }
+            }
+            if (foundUser == null) {
+                res.status(404).send({ message: `User was not found.` });
+            }
+            else {
+                res.status(200).send(foundUser);
+            }
+        }
+        else {
+            res.status(401).send({ message: `Unauthorized Token` });
         }
     }
-    if (foundUser == null) {
-        res.status(404).send({ message: `User was not found.` });
-    }
     else {
-        res.status(200).send(foundUser);
+        res.status(401).send({ message: `Missing Authorization` });
     }
 });
 //DELETE Request
