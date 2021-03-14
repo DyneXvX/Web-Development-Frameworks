@@ -1,36 +1,36 @@
 import express from 'express';
 import { users } from '../models/users';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+
 
 const usersRouter = express.Router();
+const key = '3165131651320';
 
 let usersArray: users[] = [];
 usersArray.push(new users(1, 'Justin', 'Thoms', 'n01414359@unf.edu', 'Password'));
 
 //GET Request
 //Return Users without their password field.
-usersRouter.get('/', (req, res, next) => {   
+usersRouter.get('/', (req, res, next) => {
     res.status(200).send(usersArray);
 });
 
 //Login and verify for JWT..
-usersRouter.get('/:userId/:password', (req, res, next) =>{
-
-    let found = false;
-    for(let i = 0; i<usersArray.length; i++)
-    {
-        if(usersArray[i].userId === +req.params.userId && usersArray[i].password === req.params.password)
-        {
-            //Authenticated the user
-            found = true;
-            res.send('125412851415')
-            break;
+usersRouter.get('/:userId/:password', (req, res, next) => {
+    let foundUser: users | null = null;
+    for (let i = 0; i < usersArray.length; i++) {
+        if (usersArray[i].userId === +req.params.userId) {
+            foundUser = usersArray[i];
+            bcrypt.compare(req.params.password, foundUser.password, function (err, results) {
+                let token = jwt.sign({ userId: foundUser?.userId, firstName: foundUser?.firstName }, key, { expiresIn: 3600, subject: foundUser?.firstName });
+                res.status(200).send(token);
+            })
         }
     }
-    if(!found)
-    {
-        res.status(401).send('Bad userId or password!');
+    if (!foundUser) {
+        res.status(404).send({ message: `User Not Found` })
     }
-
 })
 
 //GET by userId
@@ -59,9 +59,15 @@ usersRouter.post('/', (req, res, next) => {
     //Should be error checking to ensure that the userID doesn't already exist? 
     //If userID is inputted it takes you to home page... Not sure what this means.
     let lastUser = usersArray[usersArray.length - 1].userId;
-    usersArray.push(new users(++lastUser, req.body.firstName, req.body.lastName, req.body.emailAddress, req.body.password));
-    res.status(201).send(usersArray[usersArray.length - 1])
-    //201 means created
+
+    bcrypt.genSalt(10, function (err, salt) {
+        bcrypt.hash(req.body.password, salt, function (err, hash) {
+            let newUser = new users(++lastUser, req.body.firstName, req.body.lastName, req.body.emailAddress, hash);
+            usersArray.push(newUser);
+            res.status(201).send(newUser)
+        })
+
+    })
 });
 
 //PATCH Request - Edit MVC
@@ -92,25 +98,43 @@ usersRouter.patch('/:userId', (req, res, next) => {
 
 //DELETE Request
 usersRouter.delete('/:userId', (req, res, next) => {
-
-    let foundUser: users | null = null;
-
-    for (let i = 0; i < usersArray.length; i++) {
-        if (usersArray[i].userId === +req.params.userId) {
-            foundUser = usersArray[i];
-            usersArray.splice(i);
-            break;
+    if (req.headers.authorization) {
+        if (req.headers.authorization.startsWith("Bearer ")) {
+            var authorization = req.headers.authorization.substring(7, req.headers.authorization.length);
+            try {
+                let tokenPayLoad = jwt.verify(authorization.toString(), key) as { userId: number, firstName: string, iat: number, exp: number, sub: string };
+                console.log(tokenPayLoad);
+                if (tokenPayLoad.userId === +req.params.userId) {
+                    let foundUser: users | null = null;
+                    for (let i = 0; i < usersArray.length; i++) {
+                        if (usersArray[i].userId === +req.params.userId) {
+                            foundUser = usersArray[i];
+                            usersArray.splice(i);
+                            res.status(200).send({ message: `User Deleted.` });
+                            break;
+                        }
+                    }
+                    if (!foundUser) {
+                        res.status(404).send({ message: `User Not Found` });
+                    }
+                } else {
+                    res.status(404).send({ message: `You can only delete your account.` })
+                }
+            } catch (ex) {
+                console.log(ex);
+                res.status(401).send({ message: `Invalid Web Token` })
+            }
+        } else {
+            res.status(401).send({ message: `Unauthorized Token` });
         }
+    } else {
+        res.status(401).send({ message: `Missing Authorization` });
     }
 
-    if (foundUser == null) {
-        //Not found
-        res.status(404).send({ message: `The user was not found.` });
-    }
-    else {
-        //No content
-        res.status(204).send({ message: `User Deleted.` });
-    }
+
+
+
+
 
 });
 

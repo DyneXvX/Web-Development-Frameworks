@@ -1,11 +1,11 @@
 class users{
     userId:number;
-    firstName:String;
-    lastName:String;
-    emailAddress:String;
-    password:String;
+    firstName:string;
+    lastName:string;
+    emailAddress:string;
+    password:string;
     
-    constructor(userId:number, firstName:String, lastName:String, emailAddress:String, password:String)
+    constructor(userId:number, firstName:string, lastName:string, emailAddress:string, password:string)
     {
         this.userId = userId;
         this.firstName = firstName;
