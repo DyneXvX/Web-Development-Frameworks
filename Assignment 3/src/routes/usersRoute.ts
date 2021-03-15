@@ -19,32 +19,14 @@ bcrypt.genSalt(10, function (err, salt) {
 })
 
 //GET Request
-//Return Users without their password field.
+//Return Users without their password field?
 usersRouter.get('/', (req, res, next) => {
     res.status(200).send(usersArray);
 });
 
-//Login and verify for JWT..
-usersRouter.get('/:userId/:password', (req, res, next) => {
-    let foundUser: users | null = null;
-    for (let i = 0; i < usersArray.length; i++) {
-        if (usersArray[i].userId === +req.params.userId) {
-            foundUser = usersArray[i];
-            bcrypt.compare(req.params.password, foundUser.password, function (err, results) {
-                let token = jwt.sign({ userId: foundUser?.userId, firstName: foundUser?.firstName }, key, { expiresIn: 3600, subject: foundUser?.firstName });
-                res.status(200).send(token);
-            })
-        }
-    }
-    if (!foundUser) {
-        res.status(404).send({ message: `User Not Found` })
-    }
-})
-
 //GET by userId
 //Return all but Password
 usersRouter.get('/:userId', (req, res, next) => {
-
     let foundUser: users | null = null;
     for (let i = 0; i < usersArray.length; i++) {
         if (usersArray[i].userId === +req.params.userId) {
@@ -60,14 +42,11 @@ usersRouter.get('/:userId', (req, res, next) => {
     }
 });
 
-
 //POST Request
 usersRouter.post('/', (req, res, next) => {
-
     //Should be error checking to ensure that the userID doesn't already exist? 
     //If userID is inputted it takes you to home page... Not sure what this means.
     let lastUser = usersArray[usersArray.length - 1].userId;
-
     bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash(req.body.password, salt, function (err, hash) {
             let newUser = new users(++lastUser, req.body.firstName, req.body.lastName, req.body.emailAddress, hash);
@@ -80,20 +59,17 @@ usersRouter.post('/', (req, res, next) => {
 //PATCH Request - Edit MVC
 usersRouter.patch('/:userId', (req, res, next) => {
     let foundUser: users | null = null;
-    if(req.headers.authorization)
-    {
-        if(req.headers.authorization.startsWith("Bearer "))
-        {
+    if(req.headers.authorization) {
+        if(req.headers.authorization.startsWith("Bearer ")) {
             for (let i = 0; i < usersArray.length; i++) {
-                if (usersArray[i].userId === +req.params.userId) 
-                {
+                if (usersArray[i].userId === +req.params.userId) {
                     foundUser = usersArray[i];
                     foundUser.firstName = req.body.firstName;
                     foundUser.lastName = req.body.lastName;
                     foundUser.emailAddress = req.body.emailAddress;
                     bcrypt.genSalt(10, function(err, salt){
                         bcrypt.hash(req.body.password, salt, function(err, hash){
-                            if(foundUser) //this isn't even possible to be null!!.
+                            if(foundUser)//this isn't even possible to be null!!.
                             {
                                 foundUser.password = hash;
                             }                            
@@ -114,8 +90,6 @@ usersRouter.patch('/:userId', (req, res, next) => {
     }else{
         res.status(401).send({ message: `Missing Authorization` });
     }
-
-
 });
 
 //DELETE Request
@@ -154,9 +128,22 @@ usersRouter.delete('/:userId', (req, res, next) => {
     }
 });
 
-
-
-
+//Login and verify for JWT..
+usersRouter.get('/:userId/:password', (req, res, next) => {
+    let foundUser: users | null = null;
+    for (let i = 0; i < usersArray.length; i++) {
+        if (usersArray[i].userId === +req.params.userId) {
+            foundUser = usersArray[i];
+            bcrypt.compare(req.params.password, foundUser.password, function (err, results) {
+                let token = jwt.sign({ userId: foundUser?.userId, firstName: foundUser?.firstName }, key, { expiresIn: 3600, subject: foundUser?.firstName });
+                res.status(200).send(token);
+            })
+        }
+    }
+    if (!foundUser) {
+        res.status(401).send({ message: `UnAuthorized` })
+    }
+})
 //route exports
 export { usersArray }
 export { usersRouter };

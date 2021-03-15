@@ -21,25 +21,9 @@ bcrypt_1.default.genSalt(10, function (err, salt) {
     });
 });
 //GET Request
-//Return Users without their password field.
+//Return Users without their password field?
 usersRouter.get('/', (req, res, next) => {
     res.status(200).send(usersArray);
-});
-//Login and verify for JWT..
-usersRouter.get('/:userId/:password', (req, res, next) => {
-    let foundUser = null;
-    for (let i = 0; i < usersArray.length; i++) {
-        if (usersArray[i].userId === +req.params.userId) {
-            foundUser = usersArray[i];
-            bcrypt_1.default.compare(req.params.password, foundUser.password, function (err, results) {
-                let token = jsonwebtoken_1.default.sign({ userId: foundUser?.userId, firstName: foundUser?.firstName }, key, { expiresIn: 3600, subject: foundUser?.firstName });
-                res.status(200).send(token);
-            });
-        }
-    }
-    if (!foundUser) {
-        res.status(404).send({ message: `User Not Found` });
-    }
 });
 //GET by userId
 //Return all but Password
@@ -145,6 +129,22 @@ usersRouter.delete('/:userId', (req, res, next) => {
     }
     else {
         res.status(401).send({ message: `Missing Authorization` });
+    }
+});
+//Login and verify for JWT..
+usersRouter.get('/:userId/:password', (req, res, next) => {
+    let foundUser = null;
+    for (let i = 0; i < usersArray.length; i++) {
+        if (usersArray[i].userId === +req.params.userId) {
+            foundUser = usersArray[i];
+            bcrypt_1.default.compare(req.params.password, foundUser.password, function (err, results) {
+                let token = jsonwebtoken_1.default.sign({ userId: foundUser?.userId, firstName: foundUser?.firstName }, key, { expiresIn: 3600, subject: foundUser?.firstName });
+                res.status(200).send(token);
+            });
+        }
+    }
+    if (!foundUser) {
+        res.status(401).send({ message: `UnAuthorized` });
     }
 });
 //# sourceMappingURL=usersRoute.js.map
