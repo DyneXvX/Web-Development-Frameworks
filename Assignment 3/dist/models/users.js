@@ -9,6 +9,11 @@ class users {
         this.emailAddress = emailAddress;
         this.password = password;
     }
+    toJson() {
+        let newUser = new users(this.userId, this.firstName, this.lastName, this.emailAddress, '');
+        delete newUser.password;
+        return newUser;
+    }
 }
 exports.users = users;
 //# sourceMappingURL=users.js.map
