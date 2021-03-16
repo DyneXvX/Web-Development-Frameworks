@@ -14,7 +14,7 @@ class users{
         this.password = password;
     }
 
-    toJson()
+    toJSON()
     {
         let newUser = <any>  new users(this.userId, this.firstName, this.lastName, this.emailAddress, '');
         delete newUser.password;

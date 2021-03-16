@@ -9,7 +9,7 @@ class users {
         this.emailAddress = emailAddress;
         this.password = password;
     }
-    toJson() {
+    toJSON() {
         let newUser = new users(this.userId, this.firstName, this.lastName, this.emailAddress, '');
         delete newUser.password;
         return newUser;
