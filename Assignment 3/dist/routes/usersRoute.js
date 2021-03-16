@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const users_1 = require("../models/users");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const email_validator_1 = __importDefault(require("email-validator"));
 const usersRouter = express_1.default.Router();
 exports.usersRouter = usersRouter;
 const key = '3165131651320';
@@ -47,41 +48,58 @@ usersRouter.post('/', (req, res, next) => {
     //Should be error checking to ensure that the userID doesn't already exist? 
     //If userID is inputted it takes you to home page... Not sure what this means.
     let lastUser = usersArray[usersArray.length - 1].userId;
-    bcrypt_1.default.genSalt(10, function (err, salt) {
-        bcrypt_1.default.hash(req.body.password, salt, function (err, hash) {
-            let newUser = new users_1.users(++lastUser, req.body.firstName, req.body.lastName, req.body.emailAddress, hash);
-            usersArray.push(newUser);
-            res.status(201).send(newUser);
+    //email validation
+    if (email_validator_1.default.validate(req.body.emailAddress)) {
+        bcrypt_1.default.genSalt(10, function (err, salt) {
+            bcrypt_1.default.hash(req.body.password, salt, function (err, hash) {
+                let newUser = new users_1.users(++lastUser, req.body.firstName, req.body.lastName, req.body.emailAddress, hash);
+                usersArray.push(newUser);
+                res.status(201).send(newUser);
+            });
         });
-    });
+    }
+    else {
+        res.status(409).send({ message: `A valid email is required.` });
+    }
 });
-//PATCH Request - Edit MVC
+//PATCH Request 
 usersRouter.patch('/:userId', (req, res, next) => {
     let foundUser = null;
+    //do they have authorization?
     if (req.headers.authorization) {
+        //is it a Bearer Token?
         if (req.headers.authorization.startsWith("Bearer ")) {
-            for (let i = 0; i < usersArray.length; i++) {
-                if (usersArray[i].userId === +req.params.userId) {
-                    foundUser = usersArray[i];
-                    foundUser.firstName = req.body.firstName;
-                    foundUser.lastName = req.body.lastName;
-                    foundUser.emailAddress = req.body.emailAddress;
-                    bcrypt_1.default.genSalt(10, function (err, salt) {
-                        bcrypt_1.default.hash(req.body.password, salt, function (err, hash) {
-                            if (foundUser) //this isn't even possible to be null!!.
-                             {
-                                foundUser.password = hash;
-                            }
-                        });
-                    });
-                    break;
+            var authorization = req.headers.authorization.substring(7, req.headers.authorization.length);
+            try {
+                //is it a valid Bearer Token?
+                if (jsonwebtoken_1.default.verify(authorization, key)) {
+                    for (let i = 0; i < usersArray.length; i++) {
+                        if (usersArray[i].userId === +req.params.userId) {
+                            foundUser = usersArray[i];
+                            foundUser.firstName = req.body.firstName;
+                            foundUser.lastName = req.body.lastName;
+                            foundUser.emailAddress = req.body.emailAddress;
+                            bcrypt_1.default.genSalt(10, function (err, salt) {
+                                bcrypt_1.default.hash(req.body.password, salt, function (err, hash) {
+                                    if (foundUser) //this isn't even possible to be null!!.
+                                     {
+                                        foundUser.password = hash;
+                                    }
+                                });
+                            });
+                            break;
+                        }
+                    }
+                    if (foundUser == null) {
+                        res.status(404).send({ message: `User was not found.` });
+                    }
+                    else {
+                        res.status(200).send(foundUser);
+                    }
                 }
             }
-            if (foundUser == null) {
-                res.status(404).send({ message: `User was not found.` });
-            }
-            else {
-                res.status(200).send(foundUser);
+            catch (ex) {
+                res.status(401).send({ message: `Not a valid Web Token` });
             }
         }
         else {
@@ -99,7 +117,6 @@ usersRouter.delete('/:userId', (req, res, next) => {
             var authorization = req.headers.authorization.substring(7, req.headers.authorization.length);
             try {
                 let tokenPayLoad = jsonwebtoken_1.default.verify(authorization.toString(), key);
-                console.log(tokenPayLoad);
                 if (tokenPayLoad.userId === +req.params.userId) {
                     let foundUser = null;
                     for (let i = 0; i < usersArray.length; i++) {
