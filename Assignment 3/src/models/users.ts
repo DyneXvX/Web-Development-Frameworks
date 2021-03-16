@@ -1,26 +1,24 @@
-class users{
-    userId:number;
-    firstName:string;
-    lastName:string;
-    emailAddress:string;
-    password:string;
-    
-    constructor(userId:number, firstName:string, lastName:string, emailAddress:string, password:string)
-    {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;        
-        this.emailAddress = emailAddress;
-        this.password = password;
-    }
+class users {
+  userId: number;
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  password: string;
 
-    toJSON()
-    {
-        let newUser = <any>  new users(this.userId, this.firstName, this.lastName, this.emailAddress, '');
-        delete newUser.password;
+  constructor(userId: number, firstName: string, lastName: string, emailAddress: string, password: string) {
+    this.userId = userId;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.emailAddress = emailAddress;
+    this.password = password;
+  }
 
-        return newUser;
-    }
+  toJSON() {
+    let newUser = <any>new users(this.userId, this.firstName, this.lastName, this.emailAddress, "");
+    delete newUser.password;
+
+    return newUser;
+  }
 }
 
-export {users}
+export { users };

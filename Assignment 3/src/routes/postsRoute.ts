@@ -6,7 +6,7 @@ import { key } from './usersRoute';
 
 const postsRouter = express.Router();
 let postsArray: post[] = [];
-let firstPost = new post(1, new Date("March 14, 2021"), 'First Post', 'Yeah I do not get this', '1', 'headerImage', new Date("March 17, 2025"))
+let firstPost = new post(1, new Date("March 14, 2021"), 'First Post', 'This is the content of the first post!', '1', 'headerImage', new Date("March 17, 2025"))
 postsArray.push(firstPost);
 
 // let secondPost = new post(2, new Date("March 14, 2021"), 'Second Post', 'Yeah I do not get this again', '1', 'headerImage', new Date(2021, 4, 17))
@@ -73,9 +73,7 @@ postsRouter.patch('/:postId', (req, res, next) => {
                 for (let i = 0; i < postsArray.length; i++) {
                     if (postsArray[i].postId === +req.params.postId) {
                         foundPost = postsArray[i];
-                        if(foundPost.userId == tokenPayLoad.userId.toString())
-                        {
-                            
+                        if(foundPost.userId == tokenPayLoad.userId.toString()){                           
                             foundPost.content = req.body.content;
                             foundPost.headerImage = req.body.headerImage;
                             break;
@@ -132,10 +130,8 @@ postsRouter.delete('/:postId', (req, res, next)=>{
                 }
                 if (foundPost == null){
                     res.status(404).send({message: `The post was not found.`})
-                }
-                
-            } catch (ex) {
-                console.log(ex);
+                }                
+            } catch (ex) {                
                 res.status(401).send({ message: `Invalid Web Token` })
             }
         } else {

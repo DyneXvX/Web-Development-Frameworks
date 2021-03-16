@@ -10,7 +10,7 @@ class users {
         this.password = password;
     }
     toJSON() {
-        let newUser = new users(this.userId, this.firstName, this.lastName, this.emailAddress, '');
+        let newUser = new users(this.userId, this.firstName, this.lastName, this.emailAddress, "");
         delete newUser.password;
         return newUser;
     }
