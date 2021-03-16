@@ -124,7 +124,7 @@ usersRouter.delete('/:userId', (req, res, next) => {
                     for (let i = 0; i < usersArray.length; i++) {
                         if (usersArray[i].userId === +req.params.userId) {
                             foundUser = usersArray[i];
-                            usersArray.splice(i);
+                            usersArray.splice(i, 1);
                             res.status(200).send({ message: `User Deleted.` });
                             break;
                         }
@@ -166,3 +166,4 @@ usersRouter.get('/:userId/:password', (req, res, next) => {
 //route exports
 export { usersArray }
 export { usersRouter };
+export {key};
