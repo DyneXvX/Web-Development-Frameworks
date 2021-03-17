@@ -9,13 +9,11 @@ let postsArray: post[] = [];
 let firstPost = new post(1, new Date("March 14, 2021"), 'First Post', 'This is the content of the first post!', '1', 'headerImage', new Date("March 17, 2025"))
 postsArray.push(firstPost);
 
-// let secondPost = new post(2, new Date("March 14, 2021"), 'Second Post', 'Yeah I do not get this again', '1', 'headerImage', new Date(2021, 4, 17))
-// postsArray.push(secondPost);
-
 //show all post in order by created Date (last post should be first) <-- Use post Id
 postsRouter.get('/', (req, res, next) => {
     res.status(200).send(postsArray.sort((a, b) => (b.postId - a.postId)));
 });
+
 //find post by Id
 postsRouter.get('/:postId', (req, res, next) => {
     let foundPost: post | null = null;
@@ -141,12 +139,6 @@ postsRouter.delete('/:postId', (req, res, next)=>{
         res.status(401).send({ message: `Missing Authorization` });
     }
 });
-
-
-
-
-
-
 
 export { postsArray }
 export { postsRouter }

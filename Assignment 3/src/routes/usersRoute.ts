@@ -20,13 +20,11 @@ bcrypt.genSalt(10, function (err, salt) {
 })
 
 //GET Request
-//Return Users without their password field?
 usersRouter.get('/', (req, res, next) => {
     res.status(200).send(usersArray);
 });
 
 //GET by userId
-//Return all but Password
 usersRouter.get('/:userId', (req, res, next) => {
     let foundUser: users | null = null;
     for (let i = 0; i < usersArray.length; i++) {
