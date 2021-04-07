@@ -1,1 +1,26 @@
-<p>login works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-5">
+            <h4>Log in </h4>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <div class="mb-2">
+                <label for="txtUserName" class="form-label">Username</label>
+                <input [(ngModel)]="userAuthInfo!.userName" type="text" class="form-control" id="txtUserName">
+            </div>
+            <div class="mb-2">
+                <label for="password" class="form-label">Password</label>
+                <input [(ngModel)]="userAuthInfo!.password" type="password" class="form-control" id="password">
+            </div>
+            <div *ngIf="message!==''" class="alert" [ngClass]="{'alert-danger':!success, 'alert-success': success}" role="alert">
+                {{message}}
+            </div>
+            <div class="mb-2">
+                <button (click)="LoginUser()" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</div>

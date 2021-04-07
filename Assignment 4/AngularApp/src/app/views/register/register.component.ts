@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterComponent implements OnInit {
 
   userInfo: {firstName:string, lastName:string, emailAddress:string, userId:string, password:string} | null = null;
+  message: string = '';
+  success: boolean = true;
   constructor() { 
     this.userInfo = {
       firstName: '',
@@ -20,6 +22,11 @@ export class RegisterComponent implements OnInit {
 
 
   ngOnInit(): void {
+  }
+
+  changeAlert(){
+    this.success = true;
+    this.message = 'All is good'
   }
 
 }
