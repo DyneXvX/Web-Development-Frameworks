@@ -1,1 +1,26 @@
-<p>register works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-5">
+            <h4>Register a New User</h4>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <label for="txtUserId" class="form-label">User Id</label>
+            <input [(ngModel)] = "userInfo!.userId" type="text" class="form-control" id="txtUserId">
+            <br/>
+            <label for="txtFirstName" class="form-label">First Name</label>
+            <input [(ngModel)] = "userInfo!.firstName" type="text" class="form-control" id="txtFirstName">
+            <br/>
+            <label for="txtLastName" class="form-label">Last Name</label>
+            <input [(ngModel)] = "userInfo!.lastName" type="text" class="form-control" id="txtlastName">
+            <br/>
+            <label for="email" class="form-label">Email</label>
+            <input [(ngModel)] = "userInfo!.emailAddress" type="email" class="form-control" id="email">
+            <br/>
+            <label for="password" class="form-label">Password</label>
+            <input [(ngModel)] = "userInfo!.password" type="password" class="form-control" id="password">
+        </div>
+    </div>
+</div>
