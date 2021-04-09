@@ -1,4 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 
 @Injectable({
@@ -10,22 +11,19 @@ export class UserService {
   userName = 'jose';
   password = 'larry';
   @Output() UserStateChange = new EventEmitter<boolean>();
-  constructor() { }
+  constructor(private httpC: HttpClient) { }
 
   Login(userName: string, password: string)
   {
-    if(this.userName === userName && this.password === password)
-    {
-      this.userIsLoggedIn = true;
-      localStorage.setItem('userIsLoggedIn', JSON.stringify(this.userIsLoggedIn))
-      this.UserStateChange.emit(this.userIsLoggedIn);
-      return true;
-    }else{
-      this.userIsLoggedIn = false;
-      localStorage.setItem('userIsLoggedIn', JSON.stringify(this.userIsLoggedIn))     
-      this.UserStateChange.emit(!this.userIsLoggedIn);
-      return false;
-    }
+    return this.httpC.get<{token:string}>(`https://unf.josecgomez.dev/Users/${userName}/${password}`);
+  }
+
+  CreateUser(userData: {userId:string, firstName:string, lastName:string, emailAddress:string, password:string})
+  {
+    return this.httpC.post<{firstName: string, lastName: string, emailAddress: string, userId: string, password: string}>('https://unf.josecgomez.dev/Users', userData);    
   }
 
 }
+
+
+
