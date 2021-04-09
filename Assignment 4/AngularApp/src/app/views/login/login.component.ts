@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   userAuthInfo: { userName: string, password: string } | null = null;
   message: string = '';
   success: boolean = true;
-  constructor(private userSvc: UserService) {
+  constructor(private userSvc: UserService, private router: Router) {
     //let userSrv = new UserService(); <-- Dependency injection
     this.userAuthInfo = {
       userName: '',
@@ -29,6 +30,11 @@ export class LoginComponent implements OnInit {
       if (result) {
         this.success = true;
         this.message = 'You have been successfully logged in!'
+        setTimeout(() =>{
+          this.router.navigate(['/home']);
+        }, 2000);
+        
+
       } else {
         this.success = false;
         this.message = 'Invalid username or password.'

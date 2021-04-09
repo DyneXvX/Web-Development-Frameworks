@@ -18,8 +18,8 @@
                 <li class="nav-item text-light">
                     <a *ngIf="!userIsLoggedIn" class="nav-link text-light" [routerLink]="['/register']"><fa-icon [icon]='registerIcon'></fa-icon> Register</a>
                 </li>
-                <li class="nav-item text-light">
-                    <a *ngIf="userIsLoggedIn" class="btn" (click)="LogOutUser()"><fa-icon [icon]='signOutIcon'></fa-icon> Logout</a>
+                <li class="nav-item text-light" style="cursor: pointer;">
+                    <a *ngIf="userIsLoggedIn" class="nav-link text-light" (click)="LogOutUser()"><fa-icon [icon]='signOutIcon'></fa-icon> Logout</a>
                 </li>
             </ul>
         </div>
