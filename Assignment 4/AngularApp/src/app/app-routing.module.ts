@@ -1,3 +1,4 @@
+import { AuthguardService } from './services/authguard.service';
 import { ErrorComponent } from './views/error/error.component';
 import { HomeComponent } from './views/home/home.component';
 import { RegisterComponent } from './views/register/register.component';
@@ -21,7 +22,8 @@ const routes: Routes = [
   },
   {
     path:'home',
-    component:HomeComponent
+    component:HomeComponent, 
+    canActivate: [AuthguardService]
   },
   {
     path:'**',

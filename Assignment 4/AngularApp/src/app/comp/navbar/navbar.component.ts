@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {faSignInAlt, faUserPlus} from '@fortawesome/free-solid-svg-icons'
+import {faSignInAlt, faUserPlus, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-navbar',
@@ -9,10 +9,23 @@ import {faSignInAlt, faUserPlus} from '@fortawesome/free-solid-svg-icons'
 export class NavbarComponent implements OnInit {
 
   signInIcon = faSignInAlt;
-  registerIcon = faUserPlus
-  constructor() { }
+  registerIcon = faUserPlus;
+  signOutIcon = faSignOutAlt;
+  userIsLoggedIn = false;
+
+  constructor() {
+    let token = localStorage.getItem('userIsLoggedIn');    
+    if(token != null)
+    {
+      this.userIsLoggedIn = JSON.parse(token);
+    }
+   }
 
   ngOnInit(): void {
+  }
+
+  LogOutUser(){
+    localStorage.removeItem('userIsLoggedIn');
   }
 
 }
