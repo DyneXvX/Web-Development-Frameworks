@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Token } from 'src/app/models/token.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  currentUser: Token|null = null;
+
+  constructor(private userSvc: UserService) {
+    let token = this.userSvc.GetLoggedInUser();  
+    if(token != null){      
+      this.currentUser = token;
+    }
+   }
 
   ngOnInit(): void {
   }

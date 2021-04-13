@@ -1,7 +1,10 @@
-
+import { User } from './../models/user.model';
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
+import { environment } from 'src/environments/environment';
+import { Token } from '../models/token.model';
+
 
 
 @Injectable({
@@ -16,11 +19,11 @@ export class UserService {
   }
 
   Login(userName: string, password: string) {
-    return this.httpC.get<{ token: string }>(`https://unf.josecgomez.dev/Users/${userName}/${password}`);
+    return this.httpC.get<{ token: string }>(`${environment.BASE_URL}Users/${userName}/${password}`);
   }
 
-  CreateUser(userData: { userId: string, firstName: string, lastName: string, emailAddress: string, password: string }) {
-    return this.httpC.post<{ firstName: string, lastName: string, emailAddress: string, userId: string, password: string }>('https://unf.josecgomez.dev/Users', userData);
+  CreateUser(userData:User) {
+    return this.httpC.post<User>(`${environment.BASE_URL}Users`, userData);
   }
 
   SetUserLoggedIn(userToken:{token:string}){
@@ -28,7 +31,7 @@ export class UserService {
     this.UserStateChange.emit(true);
   }
 
-  SetUserLoggedOff(userToken:{token:string}){
+  SetUserLoggedOff(){
     localStorage.removeItem('token');
     this.UserStateChange.emit(false);
   }
@@ -37,7 +40,7 @@ export class UserService {
     let tokenString = localStorage.getItem('token');
     if(tokenString!==null){
       let tokenObj = JSON.parse(tokenString) as {token:string};
-      let tokenInfo = jwt_decode(tokenObj.token);
+      let tokenInfo = <Token>jwt_decode(tokenObj.token);
       return tokenInfo;
     }
     else{

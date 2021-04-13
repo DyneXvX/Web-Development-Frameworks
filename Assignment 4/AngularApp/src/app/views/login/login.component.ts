@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,11 +12,11 @@ export class LoginComponent implements OnInit {
   userAuthInfo: { userName: string, password: string } | null = null;
   message: string = '';
   success: boolean = true;
-  constructor(private userSvc: UserService, private router: Router) {
+  constructor(private userSvc: UserService, private router: Router, private route:ActivatedRoute) {
     //let userSrv = new UserService(); <-- Dependency injection replaced.
-    this.userAuthInfo = {
-      userName: '',
-      password: ''
+    this.userAuthInfo = {userName: '', password: ''};
+    if (this.route.snapshot.paramMap.get('msg') != null){
+      this.message = this.route.snapshot.paramMap.get('msg')as string;
     }
   }
 
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
       let result = this.userSvc.Login(this.userAuthInfo?.userName, this.userAuthInfo?.password).subscribe((response)=>{
         console.log(response.token);
         this.userSvc.SetUserLoggedIn(response);
+        this.router.navigate(['/home'])
       }, (er)=>{
         this.success = false;
         this.message = er.error.messsage; //keep this wrong.        

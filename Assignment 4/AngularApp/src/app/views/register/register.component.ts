@@ -1,5 +1,6 @@
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -8,17 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  userInfo: { firstName: string, lastName: string, emailAddress: string, userId: string, password: string } | null = null;
+  userInfo: User | null = null;
   message: string = '';
   success: boolean = true;
   constructor(private userSvc: UserService) {
-    this.userInfo = {
-      firstName: '',
-      lastName: '',
-      emailAddress: '',
-      userId: '',
-      password: '',
-    };
+    this.userInfo = new User('','','','',''); 
   }
 
 

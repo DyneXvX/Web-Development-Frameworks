@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import {faSignInAlt, faUserPlus, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
+import { Token } from 'src/app/models/token.model';
 
 @Component({
   selector: 'app-navbar',
@@ -14,14 +15,17 @@ export class NavbarComponent implements OnInit {
   registerIcon = faUserPlus;
   signOutIcon = faSignOutAlt;
   userIsLoggedIn = false;
+  currentUser: Token|null = null;
 
   constructor(private userSvc: UserService, private router: Router) {
-    let token = localStorage.getItem('token');    
+    let token = this.userSvc.GetLoggedInUser();  
     if(token != null)
     {
-      this.userIsLoggedIn = JSON.parse(token);
+      this.userIsLoggedIn = true;
+      this.currentUser = token;
     }
     this.userSvc.UserStateChange.subscribe((userLoggedInMsg) =>{
+      this.currentUser = token;
       this.userIsLoggedIn = userLoggedInMsg;
     })
 
@@ -31,7 +35,7 @@ export class NavbarComponent implements OnInit {
   }
 
   LogOutUser(){
-    localStorage.removeItem('token');
+    this.userSvc.SetUserLoggedOff();
     this.userIsLoggedIn = false;
     this.router.navigate(['/login']);
   }
