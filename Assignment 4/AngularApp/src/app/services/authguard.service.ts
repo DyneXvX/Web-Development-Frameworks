@@ -9,18 +9,15 @@ import { Observable } from 'rxjs';
 export class AuthguardService implements CanActivate{
 
   constructor(private userSvc:UserService, private router:Router) { }
+  
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    let token = localStorage.getItem('userIsLoggedIn');
-    let userLoggedIn = false;
-    if(token != null)
-    {
-      userLoggedIn = JSON.parse(token);
-    }
-    if(userLoggedIn != true)
-    {
+    let userInfo = this.userSvc.GetLoggedInUser();
+    console.log(userInfo);
+    if (userInfo===null){
       this.router.navigate(['/login']);
+      return false;
+    }else{      
+      return true;
     }
-    return userLoggedIn;
-
   }
 }

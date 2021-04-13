@@ -26,26 +26,12 @@ export class LoginComponent implements OnInit {
 
   LoginUser() {
     if (this.userAuthInfo?.userName !== undefined && this.userAuthInfo.password !== undefined) {
-
-      // let result = this.userSvc.Login(this.userAuthInfo?.userName, this.userAuthInfo?.password)
-      // if (result) {
-      //   this.success = true;
-      //   this.message = 'You have been successfully logged in!'
-      //   setTimeout(() =>{
-      //     this.router.navigate(['/home']);
-      //   }, 2000);
-        
-
-      // } else {
-      //   this.success = false;
-      //   this.message = 'Invalid username or password.'
-      // }
       let result = this.userSvc.Login(this.userAuthInfo?.userName, this.userAuthInfo?.password).subscribe((response)=>{
-        console.log(response.token)
+        console.log(response.token);
+        this.userSvc.SetUserLoggedIn(response);
       }, (er)=>{
         this.success = false;
-        this.message = er.error.messsage; //keep this wrong.
-        console.error(er)
+        this.message = er.error.messsage; //keep this wrong.        
       })
 
     }

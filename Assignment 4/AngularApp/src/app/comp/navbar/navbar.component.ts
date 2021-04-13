@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   userIsLoggedIn = false;
 
   constructor(private userSvc: UserService, private router: Router) {
-    let token = localStorage.getItem('userIsLoggedIn');    
+    let token = localStorage.getItem('token');    
     if(token != null)
     {
       this.userIsLoggedIn = JSON.parse(token);
@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit {
   }
 
   LogOutUser(){
-    localStorage.removeItem('userIsLoggedIn');
+    localStorage.removeItem('token');
     this.userIsLoggedIn = false;
     this.router.navigate(['/login']);
   }
