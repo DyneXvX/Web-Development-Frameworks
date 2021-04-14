@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-5">
+            <h4>Create a New Post</h4>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">
+            <div class="mb-2">
+                <label for="txtPostTitle" class="form-label"><h3>Post Title</h3></label>
+                <input [(ngModel)]="postInfo!.userId" type="text" class="form-control" id="txtUserId">
+            </div>
+            <div class="mb-2">
+                <label for="txtHeaderImage" class="form-label">Header Image URL</label>
+                <input [(ngModel)]="postInfo!.headerImage" type="text" class="form-control" id="txtFirstName">
+            </div>
+            <div class="mb-2">
+                <label for="txtContent" class="form-label"></label>
+                <input [(ngModel)]="postInfo!.content" type="textarea" class="form-control" id="txtlastName" placeholder="Enter text here!">
+            </div>
+            <div *ngIf="message!==''" class="alert" [ngClass]="{'alert-danger':!success, 'alert-success': success}" role="alert">
+                {{message}}
+            </div>
+            <div class="mb-2">
+                <button (click)="CreatePost()" class="btn btn-primary">Create Post</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  BASE_URL:'https://unf.josecgomez.dev/'
+  BASE_URL:'https://unf.josecgomez.dev'
 };
 
 /*

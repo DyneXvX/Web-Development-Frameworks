@@ -1,3 +1,4 @@
+import { CreatepostComponent } from './views/createpost/createpost.component';
 import { AuthguardService } from './services/authguard.service';
 import { ErrorComponent } from './views/error/error.component';
 import { HomeComponent } from './views/home/home.component';
@@ -22,8 +23,11 @@ const routes: Routes = [
   },
   {
     path:'home',
-    component:HomeComponent, 
-    canActivate: [AuthguardService]
+    component:HomeComponent,     
+  },
+  {
+    path: 'create',
+    component:CreatepostComponent
   },
   {
     path:'**',

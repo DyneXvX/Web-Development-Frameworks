@@ -19,34 +19,34 @@ export class UserService {
   }
 
   Login(userName: string, password: string) {
-    return this.httpC.get<{ token: string }>(`${environment.BASE_URL}Users/${userName}/${password}`);
+    return this.httpC.get<{ token: string }>(`${environment.BASE_URL}/Users/${userName}/${password}`);
   }
 
-  CreateUser(userData:User) {
-    return this.httpC.post<User>(`${environment.BASE_URL}Users`, userData);
+  CreateUser(userData: User) {
+    return this.httpC.post<User>(`${environment.BASE_URL}/Users`, userData);
   }
 
-  SetUserLoggedIn(userToken:{token:string}){
+  SetUserLoggedIn(userToken: { token: string }) {
     localStorage.setItem('token', JSON.stringify(userToken));
     this.UserStateChange.emit(true);
   }
 
-  SetUserLoggedOff(){
+  SetUserLoggedOff() {
     localStorage.removeItem('token');
     this.UserStateChange.emit(false);
   }
 
-  GetLoggedInUser(){
+  GetLoggedInUser() {
     let tokenString = localStorage.getItem('token');
-    if(tokenString!==null){
-      let tokenObj = JSON.parse(tokenString) as {token:string};
+    if (tokenString !== null) {
+      let tokenObj = JSON.parse(tokenString) as { token: string };
       let tokenInfo = <Token>jwt_decode(tokenObj.token);
       return tokenInfo;
     }
-    else{
+    else {
       return null;
     }
-    
+
   }
 
 }
