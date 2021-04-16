@@ -17,4 +17,12 @@ export class PostService {
   CreatePost(postData: Post){
     return this.httpC.post<Post>(`${environment.BASE_URL}/Posts`, postData)
   }
+
+  EditPost(postId: string, postData: Post){
+    return this.httpC.patch<Post>(`${environment.BASE_URL}/Posts/${postId}`, postData)
+  }
+
+  DeletePost(postId: string){
+    return this.httpC.delete<Post>(`${environment.BASE_URL}/Posts/${postId}`)
+  }
 }
