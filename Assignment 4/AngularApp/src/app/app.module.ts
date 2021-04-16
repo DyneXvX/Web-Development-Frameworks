@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PostinstanceComponent } from './comp/postinstance/postinstance.component';
 import { CreatepostComponent } from './views/createpost/createpost.component';
 import { SanctumComponent } from './views/sanctum/sanctum.component';
+import { EditpostComponent } from './views/editpost/editpost.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { SanctumComponent } from './views/sanctum/sanctum.component';
     NavbarComponent,
     ErrorComponent,
     PostinstanceComponent,   
-    CreatepostComponent, SanctumComponent,
+    CreatepostComponent, SanctumComponent, EditpostComponent,
   ],
   imports: [
     BrowserModule,
