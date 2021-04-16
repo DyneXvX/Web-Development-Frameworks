@@ -12,7 +12,9 @@ export class CreatepostComponent implements OnInit {
   postInfo: Post | null = null;
   message: string = '';
   success: boolean = true;
-  constructor(private postSvc: PostService) { }
+  constructor(private postSvc: PostService) {
+    //this.postInfo = new Post;
+   }
 
   ngOnInit(): void {
   }

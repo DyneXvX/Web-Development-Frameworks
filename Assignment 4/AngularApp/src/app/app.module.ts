@@ -11,8 +11,8 @@ import { ErrorComponent } from './views/error/error.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PostinstanceComponent } from './comp/postinstance/postinstance.component';
-import { PostdetailComponent } from './comp/postdetail/postdetail.component';
 import { CreatepostComponent } from './views/createpost/createpost.component';
+import { SanctumComponent } from './views/sanctum/sanctum.component';
 
 @NgModule({
   declarations: [
@@ -22,9 +22,8 @@ import { CreatepostComponent } from './views/createpost/createpost.component';
     HomeComponent,
     NavbarComponent,
     ErrorComponent,
-    PostinstanceComponent,
-    PostdetailComponent,
-    CreatepostComponent,
+    PostinstanceComponent,   
+    CreatepostComponent, SanctumComponent,
   ],
   imports: [
     BrowserModule,

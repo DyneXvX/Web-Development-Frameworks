@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       let result = this.userSvc.Login(this.userAuthInfo?.userName, this.userAuthInfo?.password).subscribe((response)=>{
         console.log(response.token);
         this.userSvc.SetUserLoggedIn(response);
-        this.router.navigate(['/home'])
+        this.router.navigate(['/sanctum'])
       }, (er)=>{
         this.success = false;
         this.message = er.error.messsage; //keep this wrong.        

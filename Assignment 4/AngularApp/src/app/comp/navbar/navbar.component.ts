@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import {faSignInAlt, faUserPlus, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
+import {faSignInAlt, faUserPlus, faSignOutAlt, faBookOpen, faPlaceOfWorship} from '@fortawesome/free-solid-svg-icons'
 import { Token } from 'src/app/models/token.model';
 
 @Component({
@@ -14,6 +14,8 @@ export class NavbarComponent implements OnInit {
   signInIcon = faSignInAlt;
   registerIcon = faUserPlus;
   signOutIcon = faSignOutAlt;
+  bookOpenIcon = faBookOpen;
+  placeOfWorshipIcon = faPlaceOfWorship;
   userIsLoggedIn = false;
   currentUser: Token|null = null;
 

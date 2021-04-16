@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row">
-        <div class="col-5">
+        <div class="col-10">
             <h4>Register a New User</h4>
             <hr />
         </div>
     </div>
     <div class="row">
-        <div class="col-5">
+        <div class="col-10">
             <div class="mb-2">
                 <label for="txtUserId" class="form-label">User Id</label>
                 <input [(ngModel)]="userInfo!.userId" type="text" class="form-control" id="txtUserId">
@@ -34,5 +34,7 @@
                 <button (click)="CreateUser()" class="btn btn-primary">Create User</button>
             </div>
         </div>
+        <hr/>
+
     </div>
 </div>

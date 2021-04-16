@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostdetailComponent } from './postdetail.component';
+import { SanctumComponent } from './sanctum.component';
 
-describe('PostdetailComponent', () => {
-  let component: PostdetailComponent;
-  let fixture: ComponentFixture<PostdetailComponent>;
+describe('SanctumComponent', () => {
+  let component: SanctumComponent;
+  let fixture: ComponentFixture<SanctumComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostdetailComponent ]
+      declarations: [ SanctumComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostdetailComponent);
+    fixture = TestBed.createComponent(SanctumComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

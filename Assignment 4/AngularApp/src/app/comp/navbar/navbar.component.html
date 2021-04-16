@@ -9,6 +9,9 @@
             <li class="nav-item text-light">
                 <a class="nav-link text-light" [routerLink]="['/home']">Home Page</a>
             </li>
+            <li class="nav-item text-light" style="cursor: pointer;">
+                <a *ngIf="userIsLoggedIn" class="nav-link text-light" [routerLink]="['/sanctum']"><fa-icon [icon]='placeOfWorshipIcon'></fa-icon> Inner Sanctum</a>
+            </li>
         </ul>
         <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -17,6 +20,9 @@
                 </li>
                 <li class="nav-item text-light">
                     <a *ngIf="!userIsLoggedIn" class="nav-link text-light" [routerLink]="['/register']"><fa-icon [icon]='registerIcon'></fa-icon> Register</a>
+                </li>
+                <li class="nav-item text-light" style="cursor: pointer;">
+                    <a *ngIf="userIsLoggedIn" class="nav-link text-light" [routerLink]="['/create']"><fa-icon [icon]='bookOpenIcon'></fa-icon> New Post</a>
                 </li>
                 <li class="nav-item text-light" style="cursor: pointer;">
                     <a *ngIf="userIsLoggedIn" class="nav-link text-light" (click)="LogOutUser()"><fa-icon [icon]='signOutIcon'></fa-icon> Logout {{this.currentUser!.UserData.firstName}}</a>

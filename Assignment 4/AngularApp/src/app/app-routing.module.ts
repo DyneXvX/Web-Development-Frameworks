@@ -1,3 +1,4 @@
+import { SanctumComponent } from './views/sanctum/sanctum.component';
 import { CreatepostComponent } from './views/createpost/createpost.component';
 import { AuthguardService } from './services/authguard.service';
 import { ErrorComponent } from './views/error/error.component';
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
     path: 'create',
     component:CreatepostComponent
+  },
+  {
+    path:'sanctum',
+    component:SanctumComponent,
+    canActivate: [AuthguardService]    
   },
   {
     path:'**',

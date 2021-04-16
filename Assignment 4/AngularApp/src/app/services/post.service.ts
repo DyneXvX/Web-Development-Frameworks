@@ -12,6 +12,7 @@ export class PostService {
 
   GetPost(){
     return this.httpC.get<Post[]>(`${environment.BASE_URL}/Posts`)
+    //sort this here somehow.... not working yet.
   }
 
   CreatePost(postData: Post){
