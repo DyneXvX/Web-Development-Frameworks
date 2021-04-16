@@ -1,6 +1,8 @@
+import { UserService } from './../../services/user.service';
 import { PostService } from './../../services/post.service';
 import { Post } from 'src/app/models/post.model';
 import { Component, OnInit } from '@angular/core';
+import { Token } from 'src/app/models/token.model';
 
 @Component({
   selector: 'app-createpost',
@@ -10,10 +12,19 @@ import { Component, OnInit } from '@angular/core';
 export class CreatepostComponent implements OnInit {
 
   postInfo: Post | null = null;
+  postArray: [] = [];
   message: string = '';
   success: boolean = true;
-  constructor(private postSvc: PostService) {
-    //this.postInfo = new Post;
+  currentUser: Token | null = null;
+  constructor(private postSvc: PostService, private userSvc: UserService) {  
+    let token = userSvc.GetLoggedInUser();
+    let postArray = postSvc.GetPost();
+    //let lastPost = postArray[postArray -1]; <-- Doesn't work
+    if(token != null)
+    {
+      this.currentUser = token;
+    }  
+    this.postInfo = new Post(0,new Date(),'','',this.currentUser!.UserData.userId,'', new Date())
    }
 
   ngOnInit(): void {

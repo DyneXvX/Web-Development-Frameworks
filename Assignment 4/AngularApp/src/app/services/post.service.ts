@@ -11,8 +11,7 @@ export class PostService {
   constructor(private httpC: HttpClient) {}
 
   GetPost(){
-    return this.httpC.get<Post[]>(`${environment.BASE_URL}/Posts`)
-    //sort this here somehow.... not working yet.
+    return this.httpC.get<Post[]>(`${environment.BASE_URL}/Posts`)    
   }
 
   CreatePost(postData: Post){

@@ -1,12 +1,12 @@
 export class Post {
 
     postId: number = 0;
-    createdDate: Date = new Date(0,0,0,);
+    createdDate: Date = new Date();
     title: string = '';
     content: string = '';
     userId: string = '';
     headerImage: string = '';
-    lastUpdated: Date = new Date(0,0,0);
+    lastUpdated: Date = new Date();
 
     constructor(postId: number, createDate: Date, title: string, content: string, userId: string, headerImage: string, lastUpdated:Date) {
         this.postId = postId,

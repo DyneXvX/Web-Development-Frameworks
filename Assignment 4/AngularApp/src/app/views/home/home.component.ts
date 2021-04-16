@@ -19,7 +19,8 @@ export class HomeComponent implements OnInit {
       this.currentUser = token;      
     }
     this.postSvc.GetPost().subscribe((postArray) =>{
-      this.postArray = postArray    
+      this.postArray = postArray
+      postArray.sort((a, b) => <any>a - <any>b)    
     }, (ex)=>{
       console.log(ex);
     });
