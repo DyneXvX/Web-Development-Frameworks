@@ -49,6 +49,18 @@ export class UserService {
 
   }
 
+  GetLoggedInUserToken()
+  {
+    let tokenString = localStorage.getItem('token');
+    if (tokenString !== null) {
+      let tokenObj = JSON.parse(tokenString) as { token: string };
+      return tokenObj.token;
+    }
+    else {
+      return null;
+    }
+  }
+
 }
 
 

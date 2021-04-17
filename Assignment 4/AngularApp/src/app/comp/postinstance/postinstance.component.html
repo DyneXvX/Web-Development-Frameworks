@@ -1,11 +1,12 @@
-<div class="card" style="width: 100%">    
+<div class="card" style="width: 100%">
     <div class="card-body">
       <h5 class="card-title">{{postInstance!.title}}</h5>
-      <h6>Created by userId: {{postInstance!.userId}}</h6>           
+      <h6>Created by userId: {{postInstance!.userId}}</h6>
       <h6>Created Date: {{postInstance!.createdDate}}</h6>
       <hr/>
     </div>
     <div class="card-body">
       <p>{{postInstance!.content}}</p>
     </div>
+    <button *ngIf="IsCurrentUserOwner()">Edit Button</button>
   </div>
