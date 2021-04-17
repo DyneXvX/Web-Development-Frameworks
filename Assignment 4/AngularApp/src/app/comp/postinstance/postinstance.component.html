@@ -8,5 +8,8 @@
     <div class="card-body">
       <p>{{postInstance!.content}}</p>
     </div>
-    <button *ngIf="IsCurrentUserOwner()">Edit Button</button>
+    <span *ngIf="IsCurrentUserOwner()">
+    <button class="btn btn-info mr-2" [routerLink]="['/edit']" >Edit Button</button>
+    <button class="btn btn-danger" onclick="DeletePost()">Delete</button>
+    </span>
   </div>

@@ -1,6 +1,6 @@
 import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { Post } from '../models/post.model';
 import { UserService } from './user.service';
 
@@ -8,24 +8,27 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class PostService {
+  @Input('currentPost') postInstance: Post | undefined;
 
   constructor(private httpC: HttpClient, private userSvc:UserService) {}
-
+  
   GetPost(){
 
     return this.httpC.get<Post[]>(`${environment.BASE_URL}/Posts`)
   }
 
   CreatePost(postData: Post){
-    const currentuserToken = this.userSvc.GetLoggedInUserToken();
-    return this.httpC.post<Post>(`${environment.BASE_URL}/Posts`, postData, {headers: new HttpHeaders().set('Authorization', `Bearer ${currentuserToken}`)})
+    const currentUserToken = this.userSvc.GetLoggedInUserToken();
+    return this.httpC.post<Post>(`${environment.BASE_URL}/Posts`, postData, {headers: new HttpHeaders().set('Authorization', `Bearer ${currentUserToken}`)})
   }
 
-  EditPost(postId: string, postData: Post){
-    return this.httpC.patch<Post>(`${environment.BASE_URL}/Posts/${postId}`, postData)
+  EditPost(postData: Post){
+    const currentUserToken = this.userSvc.GetLoggedInUserToken();
+    return this.httpC.patch<Post>(`${environment.BASE_URL}/Posts/${postData.postId}`, postData, {headers: new HttpHeaders().set('Authorization', `Bearer ${currentUserToken}`)})
   }
 
-  DeletePost(postId: string){
-    return this.httpC.delete<Post>(`${environment.BASE_URL}/Posts/${postId}`)
+  DeletePost(postData: Post){
+    const currentUserToken = this.userSvc.GetLoggedInUserToken();
+    return this.httpC.delete<Post>(`${environment.BASE_URL}/Posts/${postData.postId}`,{headers: new HttpHeaders().set('Authorization', `Bearer ${currentUserToken}`)})
   }
 }

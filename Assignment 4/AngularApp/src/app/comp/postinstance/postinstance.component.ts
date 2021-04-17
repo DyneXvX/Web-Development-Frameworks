@@ -1,3 +1,4 @@
+import { PostService } from './../../services/post.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Post } from 'src/app/models/post.model';
@@ -14,7 +15,7 @@ export class PostinstanceComponent implements OnInit {
 
   @Input() postInstance: Post | undefined;
   currentUser:Token|null=null;
-  constructor(private userSvc:UserService) {
+  constructor(private userSvc:UserService, private postSvc:PostService) {
     this.currentUser = this.userSvc.GetLoggedInUser();
 
    }
