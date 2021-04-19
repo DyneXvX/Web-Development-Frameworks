@@ -15,7 +15,9 @@ export default Button;
 
 Button.defaultProps = {
   color: "blue",
-};
+  
+}
+
 
 Button.prototype = {
   text: PropTypes.string,

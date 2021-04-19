@@ -5,7 +5,7 @@ import Button from './Button'
 
 const Header = ({title}) => {
     const onClick = () => {
-        console.log('Click from the Header')
+        alert('Click from the Header')
     }
 
   return (
@@ -17,7 +17,7 @@ const Header = ({title}) => {
 };
 
 Header.defaultProps = {
-    title: 'Header',
+    title: 'Header2',
 }
 
 Header.propTypes = {
