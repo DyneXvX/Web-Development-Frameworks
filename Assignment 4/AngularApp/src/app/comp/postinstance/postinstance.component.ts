@@ -13,8 +13,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PostinstanceComponent implements OnInit {
 
+  postInfo: Post | null = null;
+  message: string = '';
+  success: boolean = true;
+  currentUser: Token | null = null;  
+
   @Input() postInstance: Post | undefined;
-  currentUser:Token|null=null;
+  
   constructor(private userSvc:UserService, private postSvc:PostService) {
     this.currentUser = this.userSvc.GetLoggedInUser();
 
@@ -22,6 +27,20 @@ export class PostinstanceComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  // DeletePost(postInfo: Post){
+  //   if (this.postInfo !== null) {
+  //     this.postSvc.DeletePost(postInfo.postId).subscribe((response) => {
+  //       this.success = true;        
+  //       this.message = `The Post ${response.title} has been deleted!`
+  //     }, (er) => {
+  //       this.success = false;        
+  //       this.message = er.error.messsage; //this needs to be spelled wrong or it won't work!!                
+  //       console.error(er);        
+  //     })
+  //   }
+
+  // }
 
   public IsCurrentUserOwner()
   {
